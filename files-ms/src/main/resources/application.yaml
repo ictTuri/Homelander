@@ -5,7 +5,7 @@ spring:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/postgres
     username: postgres
-    password: postgres
+    password: admin
   jpa:
     properties:
       hibernate:
@@ -15,7 +15,7 @@ spring:
     url: jdbc:postgresql://localhost:5432/postgres
     schemas: files_ms
     user: postgres
-    password: postgres
+    password: admin
     enabled: true
     locations: classpath:db/migration
   main:

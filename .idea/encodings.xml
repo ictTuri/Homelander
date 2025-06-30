@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/commons-ms/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/files-ms/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gateway-ms/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/issues-ms/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/notifications-ms/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/properties-ms/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/registry-ms/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/users-ms/src/main/java" charset="UTF-8" />
+  </component>
+</project>

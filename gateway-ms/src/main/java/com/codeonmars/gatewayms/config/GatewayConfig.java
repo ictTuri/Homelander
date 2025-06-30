@@ -1,6 +1,8 @@
 package com.codeonmars.gatewayms.config;
 
 import com.codeonmars.gatewayms.filter.AuthenticationFilter;
+import org.springframework.cloud.gateway.filter.ratelimit.KeyResolver;
+import org.springframework.cloud.gateway.filter.ratelimit.RedisRateLimiter;
 import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
 import org.springframework.context.annotation.Bean;
@@ -29,10 +31,13 @@ public class GatewayConfig {
     }
 
     @Bean
-    public RouteLocator routes(RouteLocatorBuilder builder) {
+    public RouteLocator routes(RouteLocatorBuilder builder, KeyResolver ipKeyResolver) {
         return builder.routes()
                 .route("users-ms", r -> r.path("/users/**")
-                        .filters(f -> f.filter(filter))
+                        .filters(f -> f.filter(filter)
+                                .requestRateLimiter(c -> c
+                                        .setRateLimiter(redisRateLimiter())
+                                        .setKeyResolver(ipKeyResolver)))
                         .uri("lb://users-ms"))
                 .route("properties-ms", r -> r.path("/properties/search/**", "/properties/user/**", "/properties/admin/**")
                         .filters(f -> f.filter(filter))
@@ -53,6 +58,11 @@ public class GatewayConfig {
     public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
         http.csrf(ServerHttpSecurity.CsrfSpec::disable);
         return http.build();
+    }
+
+    @Bean
+    public RedisRateLimiter redisRateLimiter() {
+        return new RedisRateLimiter(10, 20);
     }
 
     private static final String ALLOWED_HEADERS = "x-requested-with, authorization, Content-Type, Authorization, credential, X-XSRF-TOKEN";
